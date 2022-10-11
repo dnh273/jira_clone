@@ -1,7 +1,10 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import { NavLink } from 'react-router-dom'
+import { GET_LIST_USER_SAGA } from '../../redux/constants/Cyberbugs/UserConstatnts'
 
 export default function MenuCyberbugs() {
+    const dispatch = useDispatch()
     return (
         <div className="menu">
             <div className="account">
@@ -25,6 +28,10 @@ export default function MenuCyberbugs() {
                 <div>
                     <i className="fa fa-cog mr-1" /> 
                     <NavLink className="text-dark"  activeStyle={{color:'blue'}} to='/createproject' activeClassName="active font-weight-bold  text-primary" >Create project</NavLink>
+                </div>
+                <div onClick={() => dispatch({type: GET_LIST_USER_SAGA})}>
+                    <i className="fa fa-cog mr-1" /> 
+                    <NavLink className="text-dark"  activeStyle={{color:'blue'}} to='/usermanagement' activeClassName="active font-weight-bold  text-primary" >User Management</NavLink>
                 </div>
                
             </div>

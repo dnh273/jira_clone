@@ -1,78 +1,68 @@
 import React, { useState } from 'react'
-import { Prompt } from 'react-router-dom';
-
-
-
+import { Prompt } from 'react-router-dom'
 
 export default function Login(props) {
+    const [userLogin,setUserLogin] = useState({userName:'',password:'',status:false})
 
-    const [userLogin,setUserLogin] = useState({userName:'',passWord:'',status:false})
-
-
-    console.log(userLogin)
-    const handleChange = (event) => {
-        const {name,value} = event.target;
+    const handleChange = (e) => {
+        const {value,name} = e.target
 
         const newUserLogin = {
             ...userLogin,
-            [name]:value
-        };
-
-
-        let valid = true;
+            [name]: value
+        }
+        let valid = true
         for(let key in newUserLogin) {
             if(key !== 'status') {
-                if(newUserLogin[key].trim()===''){
+                if(newUserLogin[key].trim() === '') {
                     valid = false;
                 }
             }
         }
-
         if(!valid) {
             newUserLogin.status = true;
-        }else {
+        }else{
             newUserLogin.status = false;
         }
-
-        setUserLogin(newUserLogin);
+        setUserLogin(newUserLogin)
+        console.log(newUserLogin);
     }
 
-    const handleLogin = (event) => {
-        event.preventDefault();
-        if(userLogin.userName === 'cyberlearn' && userLogin.passWord==='cyberlearn') {
-            //Thành công thì chuyển về trang trước đó
-            // props.history.goBack();
-            //Chuyển đến trang chỉ định sau khi xử lý
-            // Chuyển hướng đến path tương ứng
-            //  props.history.push('/home');
-            //replace thay đổi nội dung path tương ứng
-            // props.history.replace('/home');
-            props.history.goBack();
-            localStorage.setItem('userLogin',JSON.stringify(userLogin))
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        if(userLogin.userName === 'admin' && userLogin.password === 'admin') {
+            //về lại trang trước đó
+            props.history.goBack()
+            //trả về trang chỉ định
+            // props.history.push('/home')
+            //trả về trang chỉ định nhưng khi bấm quay về không còn về trang login nữa mà là trang trước login
+            // props.history.replace('/home')
 
-        }else {
-            alert('Login fail !')
-            return;
+            localStorage.setItem('userLogin',JSON.stringify(userLogin))
+        }else{
+            alert('mật khẩu hoặc tài khoản ko đúng')
+            return
         }
     }
 
-    return (
-        <form className="container" onSubmit={handleLogin}>
-            <h3 className="display-4">Login</h3>
-            <div className="form-group">
-                <p>User Name</p>
-                <input name="userName" className="form-control" onChange={handleChange}/>
-            </div>
-            <div className="form-group">
-                <p>Password</p>
-                <input name="passWord" className="form-control" onChange={handleChange}/>
-            </div>
-            <div className="form-group">
-               <button className="btn btn-success">Đăng nhập</button>
-            </div>
-            <Prompt when={userLogin.status} message={(location) => {
-                return 'Bạn có chắc muốn rời khỏi trang này !'
-            }} />
-        </form>
-    )
+  return (
+    <form className='container' onSubmit={handleSubmit}>
+        <h4 className='display-4'>Đăng Nhập</h4>
+        <div className='form-group'>
+            <p>UserName</p>
+            <input name='userName' className='form-control' onChange={handleChange}/>
+        </div>
+        <div className='form-group'>
+            <p>Password</p>
+            <input name='password' className='form-control' onChange={handleChange}/>
+        </div>
+        <div className='form-group'>
+            
+            <button className='btn btn-primary'> Đăng Nhập</button>
+        </div>
+        <Prompt when={userLogin.status} message={(location) => {
+            return 'Bạn có chắc muốn rời khỏi trang này ?!'
+        }}/>
+    </form>
+  )
 }

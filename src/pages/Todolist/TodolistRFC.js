@@ -45,7 +45,6 @@ export default function TodolistRFC(props) {
         });
 
         promise.then((result) => {
-            console.log(result.data);
             //Nếu gọi api lấy về kết quả thành công 
             //=> set lại state của component
             setState({
@@ -53,7 +52,6 @@ export default function TodolistRFC(props) {
                 taskList: result.data
             })
 
-            console.log('thành công')
         });
 
 
@@ -65,6 +63,7 @@ export default function TodolistRFC(props) {
     }
 
     const addTask = (e) => {
+        e.preventDefault();//Chặn sự kiện reload lại trang
         e.preventDefault(); //Dừng sự kiện submit form
         console.log(state.values.taskName);
 
@@ -227,5 +226,4 @@ export default function TodolistRFC(props) {
             </form>
         </div>
 
-    )
-}
+    )}

@@ -11,7 +11,7 @@ const defaultValue = [
     { id: 3, taskName: 'Task 3' },
     { id: 4, taskName: 'Task 4' },
     { id: 5, taskName: 'Task 5' },
-];
+]
 
 
 export default function DemoDragDrop(props) {
@@ -20,7 +20,7 @@ export default function DemoDragDrop(props) {
     const tagDrag = useRef({})
     const tagDragEnter = useRef({});
     //Animation
-    const [propsSpring, set, stop] = useSpring(() => ({ from: { bottom: -25 }, to: { bottom: 0 },config:{duration:250},reset:true }));
+    const [propsSpring, set, stop] = useSpring(() => ({ from: { bottom: -25 }, to: { bottom: 0 },config:{duration:250}}));
 
 
 
@@ -37,7 +37,7 @@ export default function DemoDragDrop(props) {
         // console.log('targertOver',task)
         // console.log('index',index)
         //Lưu lại giá trị của task được kéo ngang qua
-        set({bottom:0});
+        set({ from: { bottom: -25 }, to: { bottom: 0 },config:{duration:250} });
         tagDragEnter.current = { ...taskDragEnter };
 
         let taskListUpdate = [...taskList];
@@ -90,7 +90,7 @@ export default function DemoDragDrop(props) {
                             return <animated.div
                                 style={{
                                     position:'relative',
-                                    bottom: propsSpring.bottom.interpolate(numBottom => `${numBottom}px`)
+                                    bottom: propsSpring.bottom
                                 }}
                                 onDragStart={(e) => { handleDragStart(e, task, index) }}
                                 onDragEnter={(e) => { handleDragEnter(e, task, index) }}

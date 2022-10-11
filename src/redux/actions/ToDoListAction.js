@@ -1,5 +1,4 @@
 import Axios from "axios";
-import Profile from "../../pages/Profile/Profile";
 import { GET_TASK_API } from "../constants/ToDoListConst";
 
 
@@ -138,7 +137,6 @@ export const rejectTaskApi = (taskName) => {
         })
     }
 }
-
 
 
 

@@ -20,7 +20,7 @@ function* getTaskApiAction(action) {
     })
     try {
         let { data, status } = yield call(toDoListService.getTaskApi)
-        yield delay(300);
+        yield delay(100);
         if (status === STATUS_CODE.SUCCESS) {
             //Sau khi lấy giá trị thành công dùng put (giống dispatch bên thunk) 
             yield put({
@@ -45,8 +45,8 @@ export function* theoDoiActionGetTaskApi() {
 }
 
 /*
-    01/01/2020 Khải viết chức năng addTask
-    Action saga nghiệp vụ thêm task
+    01/01/2020 Khải viết chức năng getTask
+    Action saga lấy danh sách task từ api 
 */
 
 function* addTaskApiAction(action) {
@@ -70,7 +70,6 @@ function* addTaskApiAction(action) {
 export function* theoDoiActionAddTaskApi() {
     yield takeLatest(ADD_TASK_API, addTaskApiAction)
 }
-
 /*
     01/01/2020 Khải viết chức năng deleteTask
     Action saga nghiệp vụ xóa task
@@ -164,4 +163,3 @@ export function* rejectTaskApi(action) {
 export function* theoDoiRejectTask() {
     yield takeLatest(REJECT_TASK_API, rejectTaskApi)
 }
-

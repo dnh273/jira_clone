@@ -11,12 +11,13 @@ export default function IndexCyberBugs(props) {
     const {projectDetail} = useSelector(state => state.ProjectReducer)
     const dispatch = useDispatch();
 
-    console.log('projectDetail',projectDetail)
+    // console.log('projectDetail',projectDetail)
 
 
     useEffect(()=>{
         //Khi người dùng link qua trang này bằng thẻ navlink hoặc người dùng tự gõ url thì ta sẽ lấy tham số từ url => gọi saga
         const {projectId} = props.match.params;
+        // console.log("projectId", projectId)
         dispatch({
             type:'GET_PROJECT_DETAIL',
             projectId

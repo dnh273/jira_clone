@@ -20,6 +20,7 @@ export default function ProjectManagement(props) {
 
     //Sử dụng useDispatch để gọi action
     const dispatch = useDispatch();
+    
     const [state, setState] = useState({
         filteredInfo: null,
         sortedInfo: null,
@@ -30,7 +31,7 @@ export default function ProjectManagement(props) {
     }, [])
 
     const handleChange = (pagination, filters, sorter) => {
-        console.log('Various parameters', pagination, filters, sorter);
+        // console.log('Various parameters', pagination, filters, sorter);
         setState({
             filteredInfo: filters,
             sortedInfo: sorter,

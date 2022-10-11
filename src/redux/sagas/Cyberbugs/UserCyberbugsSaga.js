@@ -7,8 +7,10 @@ import { STATUS_CODE, TOKEN, USER_LOGIN } from '../../../util/constants/settingS
 
 import { history } from '../../../util/history';
 import { userService } from '../../../services/UserService';
-import { GET_USER_BY_PROJECT_ID, GET_USER_BY_PROJECT_ID_SAGA } from '../../constants/Cyberbugs/UserConstatnts';
+import { DELETE_USER_SAGA, EDIT_USER_SAGA, GET_LIST_USER, GET_LIST_USER_SAGA, GET_USER_BY_PROJECT_ID, GET_USER_BY_PROJECT_ID_SAGA, SIGN_UP_USER_SAGA } from '../../constants/Cyberbugs/UserConstatnts';
 import { array } from 'yup';
+import { notifiFunction } from '../../../util/Notification/notificationCyberbugs';
+import { type } from '@testing-library/user-event/dist/type';
 
 //Quản lý các action saga
 function* signinSaga(action) {
@@ -34,7 +36,7 @@ function* signinSaga(action) {
 
         // let history = yield select(state=> state.HistoryReducer.history)
 
-        history.push('/home');
+        history.push('/cyberbugs');
 
     } catch (err) {
         console.log(err.response.data)
@@ -59,7 +61,7 @@ export function* theoDoiSignin() {
 function* getUserSaga(action) {
 
     //action.keyWord
-    console.log("keyword", action.keyWord);
+    // console.log("keyword", action.keyWord);
     //Gọi api 
     try {
         const { data, status } = yield call(() => userService.getUser(action.keyWord));
@@ -68,7 +70,7 @@ function* getUserSaga(action) {
             type: 'GET_USER_SEARCH',
             lstUserSearch: data.content
         })
-        console.log("data", data);
+        // console.log("data", data);
 
     } catch (err) {
         console.log(err.response.data)
@@ -79,6 +81,30 @@ function* getUserSaga(action) {
 
 export function* theoDoiGetUser() {
     yield takeLatest("GET_USER_API", getUserSaga);
+}
+function* searchUserSaga(action) {
+
+    //action.keyWord
+    // console.log("keyword", action.keyWord);
+    //Gọi api 
+    try {
+        const { data, status } = yield call(() => userService.getUser(action.keyWord));
+
+        yield put({
+            type: GET_LIST_USER,
+            listUser: data.content
+        })
+        // console.log("data", data);
+
+    } catch (err) {
+        console.log(err.response.data)
+    }
+}
+
+
+
+export function* theoDoiSearchUserSaga() {
+    yield takeLatest("SEARCH_USER_API", searchUserSaga);
 }
 
 
@@ -139,26 +165,26 @@ export function* theoDoiRemoveUserProject() {
 
 function* getUserByProjectIdSaga(action) {
     const { idProject } = action;
-    console.log('action',idProject)
+    // console.log('action',idProject)
 
     try {
         const { data, status } = yield call(() => userService.getUserByProjectId(idProject));
-        console.log('checkdata',data);
+        // console.log('checkdata',data);
 
         if (status === STATUS_CODE.SUCCESS) {
             yield put({
-                type:GET_USER_BY_PROJECT_ID,
-                arrUser:data.content
+                type: GET_USER_BY_PROJECT_ID,
+                arrUser: data.content
             })
         }
 
     } catch (err) {
         console.log(err);
         console.log(err.response?.data);
-        if(err.response?.data.statusCode === STATUS_CODE.NOT_FOUND) {
+        if (err.response?.data.statusCode === STATUS_CODE.NOT_FOUND) {
             yield put({
-                type:GET_USER_BY_PROJECT_ID,
-                arrUser:[]
+                type: GET_USER_BY_PROJECT_ID,
+                arrUser: []
             })
         }
     }
@@ -168,4 +194,116 @@ function* getUserByProjectIdSaga(action) {
 
 export function* theoDoiGetUserByProjectIdSaga() {
     yield takeLatest(GET_USER_BY_PROJECT_ID_SAGA, getUserByProjectIdSaga)
+}
+
+function* signUpUserSaga(action) {
+    const { userDetails } = action;
+
+    try {
+        const { data, status } = yield call(() => userService.signUpUser(userDetails));
+
+        if (status === STATUS_CODE.SUCCESS) {
+            notifiFunction('success', 'Sign Up successfully !')
+        }
+
+        yield put({
+            type:GET_LIST_USER_SAGA
+        })
+
+    } catch (err) {
+        console.log(err);
+        console.log(err.response?.data);
+        notifiFunction('error', err.response?.data.message)
+
+    }
+}
+
+
+
+export function* theoDoiSignUpUserSaga() {
+    yield takeLatest(SIGN_UP_USER_SAGA, signUpUserSaga)
+}
+
+function* getListUserSaga(action) {
+
+    try {
+        const { data, status } = yield call(() => userService.getUser(""));
+        // console.log('checkdata',data);
+
+        if (status === STATUS_CODE.SUCCESS) {
+            yield put({
+                type: GET_LIST_USER,
+                listUser: data.content
+            })
+        }
+
+
+    } catch (err) {
+        console.log(err);
+        console.log(err.response?.data);
+
+
+    }
+}
+
+
+
+export function* theoDoiGetListUserSaga() {
+    yield takeLatest(GET_LIST_USER_SAGA, getListUserSaga)
+}
+
+
+function* editUserSaga(action) {
+    console.log('action userdetail',action.userDetails);
+    try {
+        const { data, status } = yield call(() => userService.editUser(action.userDetails));
+
+        if (status === STATUS_CODE.SUCCESS) {
+            notifiFunction('success', 'Edit User successfully !')
+            yield put({
+                type:'CLOSE_DRAWER'
+            })
+            yield put({
+                type:'GET_LIST_USER_SAGA'
+            })
+        }
+
+
+    } catch (err) {
+        console.log(err);
+        console.log(err.response?.data);
+        notifiFunction('error', err.response?.data.message)
+
+
+    }
+}
+
+
+
+export function* theoDoiEditUserSaga() {
+    yield takeLatest(EDIT_USER_SAGA, editUserSaga)
+}
+
+function * deleteUserSaga(action) {
+
+    try{
+        const { data, status } = yield call(() => userService.deleteUser(action.userId));
+        if (status === STATUS_CODE.SUCCESS) {
+            notifiFunction('success', 'Delete User successfully !')
+            // yield put({
+            //     type:'CLOSE_DRAWER'
+            // })
+            yield put({
+                type:'GET_LIST_USER_SAGA'
+            })
+        }
+    }catch (err) {
+        console.log(err);
+        console.log(err.response?.data);
+        notifiFunction('error', err.response?.data.message)
+
+    }
+}
+export function* theoDoiDeleteUserSaga() {
+    yield takeLatest(DELETE_USER_SAGA, deleteUserSaga)
 }

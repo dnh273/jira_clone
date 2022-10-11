@@ -23,7 +23,7 @@ export const cyberbugsService = {
         })
     },
     createProjectAuthorization : (newProject) => {
-        console.log(localStorage.getItem(TOKEN))
+        // console.log(localStorage.getItem(TOKEN))
         return Axios({
             url: `${DOMAIN_CYBERBUG}/Project/createProjectAuthorize`,
             method:'POST',
@@ -47,6 +47,3 @@ export const cyberbugsService = {
         })
     }
 }
-
-
-

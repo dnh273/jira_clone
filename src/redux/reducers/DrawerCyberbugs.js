@@ -1,4 +1,5 @@
 import React from 'react'
+import { SET_SUBMIT_EDIT_USER } from '../constants/Cyberbugs/UserConstatnts'
 const initialState = {
     visible: false,
     title:'',
@@ -36,8 +37,27 @@ export const drawerReducer = (state = initialState, action) => {
             return {...state};
 
         }
+        case 'OPEN_FORM_EDIT_USER' : {
+            state.visible = true;
+            state.title = action.title;
+            state.ComponentContentDrawer = action.Component;
+            return {...state};
 
-        
+        }
+        case SET_SUBMIT_EDIT_USER: {
+            state.callBackSubmit = action.submitFunction;
+            return {...state};
+        }
+        case 'OPEN_FORM_CREATE_USER' : {
+            state.visible = true;
+            state.title = action.title;
+            state.ComponentContentDrawer = action.Component;
+            return {...state};
+
+        }
+        case 'SET_SUBMIT_CREATE_USER' : {
+            return {...state,callBackSubmit:action.submitFunction}
+        }
 
         default:
             return state

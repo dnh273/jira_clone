@@ -1,19 +1,17 @@
-import { USER_SIGNIN_API } from "../constants/Cyberbugs/Cyberbugs";
 import { GET_TASK_API } from "../constants/ToDoListConst"
 
 
 const initialState = {
-    taskList:[]
+    taskList: []
 }
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default (state = initialState, action) => {
     switch (action.type) {
+        case GET_TASK_API:
+            state.taskList = action.taskList;
+            return { ...state }
 
-    case GET_TASK_API:
-        state.taskList = action.taskList;
-        return { ...state }
-
-    default:
-        return state
+        default: return { ...state }
     }
 }

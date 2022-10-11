@@ -152,6 +152,7 @@ export function* handelChangePostApi(action) {
                 userId
             })
         }break;
+        default: {}
     }
 
     //Save qua api updateTaskSaga

@@ -22,7 +22,6 @@ export class ToDoListService {
             }
         })
     }
-
     deleteTaskApi = (taskName) => {
         return Axios({
             url: `${DOMAIN}/ToDoList/deleteTask?taskName=${taskName}`,
@@ -47,4 +46,3 @@ export class ToDoListService {
 }
 
 export const toDoListService = new ToDoListService();
-

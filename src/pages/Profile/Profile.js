@@ -1,17 +1,15 @@
 import React from 'react'
-import { Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom'
 
-export default function Profile(props) {
+export default function Profile() {
 
+    if(localStorage.getItem('userLogin')){
 
-    if (localStorage.getItem('userLogin')) {
         return (
-            <div>
-                profile
-            </div>
+          <div>Profile</div>
         )
-    }else {
-        alert('Vui lòng đăng nhập để vào trang này !');
-        return <Redirect to="/login" />
+    }else{
+        alert('Please Login')
+        return <Redirect to='/login'/>
     }
 }

@@ -1,16 +1,16 @@
 import { all } from "redux-saga/effects";
-import Todolist from "../../pages/Todolist/Todolist";
+import Todolist from "../../pages/Todolist/TodolistRCC";
 import TodolistRFC from "../../pages/Todolist/TodolistRFC";
 import * as ToDoListSaga from './ToDoListSaga'
 // import {theoDoiActionGetTaskApi} from './ToDoListSaga'
 import * as Cyberbugs from './Cyberbugs/UserCyberbugsSaga';
 import * as ProjectCategorySaga from './Cyberbugs/ProjectCategorySaga';
-import * as ProjectSaga from './Cyberbugs/ProjectSaga';
+import * as ProjectSaga from './Cyberbugs/ProjectSaga'
 import * as TaskTypeSaga from './Cyberbugs/TaskTypeSaga';
 import * as PrioritySaga from './Cyberbugs/PrioritySaga';
 import * as TaskSaga from './Cyberbugs/TaskSaga';
-import * as StatusSaga from './Cyberbugs/StatusSaga'
-import { cyberbugsService } from "../../services/CyberbugsService";
+import * as StatusSaga from './Cyberbugs/StatusSaga';
+import * as CommentSaga from './Cyberbugs/CommentSaga';
 
 export function* rootSaga() {
 
@@ -25,10 +25,17 @@ export function* rootSaga() {
     //Nghiệp vụ cyberbugs .... ,
     Cyberbugs.theoDoiSignin(),
     Cyberbugs.theoDoiGetUser(),
-    Cyberbugs.theoDoiRemoveUserProject(),
     Cyberbugs.theoDoiAddUserProject(),
+    Cyberbugs.theoDoiRemoveUserProject(),
     Cyberbugs.theoDoiGetUserByProjectIdSaga(),
+    Cyberbugs.theoDoiSignUpUserSaga(),
+    Cyberbugs.theoDoiGetListUserSaga(),
+    Cyberbugs.theoDoiEditUserSaga(),
+    Cyberbugs.theoDoiDeleteUserSaga(),
+    Cyberbugs.theoDoiSearchUserSaga(),
+
     ProjectCategorySaga.theoDoigetAllProjectCategory(),
+
     ProjectSaga.theoDoiCreateProjectSaga(),
     ProjectSaga.theoDoiGetListProjectSaga(),
     ProjectSaga.theoDoiUpdateProjectSaga(),
@@ -38,17 +45,21 @@ export function* rootSaga() {
     StatusSaga.theoDoiGetAllStatusSaga(),
 
     TaskTypeSaga.theoDoiGetAllTaskTypeSaga(),
+    
     PrioritySaga.theoDoiGetAllPriority(),
 
     TaskSaga.theoDoiCreateTaskSaga(),
     TaskSaga.theoDoiGetTaskDetailSaga(),
     TaskSaga.theoDoiUpdateTaskStatusSaga(),
     TaskSaga.theoDoiHandleChangePostApi(),
-    TaskSaga.theoDoiUdpateTask()
+    TaskSaga.theoDoiUdpateTask(),
 
-    
+    CommentSaga.theoDoiGetAllcommentSaga(),
+    CommentSaga.theoDoiInsertCommentSaga(),
+    CommentSaga.theoDoiDeleteCommentSaga(),
+    CommentSaga.theoDoiUpdateCommentSaga(),
     
   ])
 
-
+ 
 }

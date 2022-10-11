@@ -1,12 +1,12 @@
 import React from 'react'
 
 export default function Detail(props) {
-
-    return (
-        <div>
-            Giá trị tham số: {props.match.params.id}
-            <br />
-            Path name hiện tại: {props.match.path}
-        </div>
-    )
+  return (
+    <div>
+       <p> Giá trị tham số : {props.match.params.id}</p>
+       <p> Giá trị tham số : {props.match.path}</p>
+       <p> Giá trị tham số : {props.match.url}</p>
+      
+    </div>
+  )
 }

@@ -27,7 +27,7 @@ for (let i = 10; i < 36; i++) {
     const {arrUser} = useSelector(state => state.UserLoginCyberBugsReducer);
     const {arrStatus} = useSelector(state => state.StatusReducer);
 
-    console.log('arrStatus',arrStatus);
+    // console.log('arrStatus',arrStatus);
     //Hàm biến đổi options cho thẻ select
     const userOptions = arrUser.map((item,index) => {
         return {value:item.userId,label:item.name}
@@ -149,7 +149,7 @@ for (let i = 10; i < 36; i++) {
                             }}
                             onSelect={(value) => { 
 
-                              console.log(value)
+                            //   console.log(value)
                         
                             }}
                             style={{ width: '100%' }}

@@ -126,10 +126,10 @@ function* deleteProjectSaga(action) {
     // console.log('action123',action);
     // return;
     //HIỂN THỊ LOADING
-    yield put({
-        type: DISPLAY_LOADING
-    })
-    yield delay (500);
+    // yield put({
+    //     type: DISPLAY_LOADING
+    // })
+    // yield delay (500);
 
     try {
         const { data, status } = yield call(() => projectService.deleteProject(action.idProject));
@@ -155,9 +155,9 @@ function* deleteProjectSaga(action) {
         console.log(err);
     }
    
-    yield put({
-        type: HIDE_LOADING
-    })
+    // yield put({
+    //     type: HIDE_LOADING
+    // })
 }
 
 
@@ -175,7 +175,7 @@ function* getProjectDetailSaga(action) {
     // yield put({
     //     type: DISPLAY_LOADING
     // })
-    yield delay (500);
+    // yield delay (500);
 
     try {
         const { data, status } = yield call(() => projectService.getProjectDetail(action.projectId));
@@ -240,4 +240,3 @@ function* getProjectAllSaga(action) {
 export function* theoDoiGetAllProjectSaga() {
     yield takeLatest(GET_ALL_PROJECT_SAGA, getProjectAllSaga);
 }
-

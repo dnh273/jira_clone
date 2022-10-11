@@ -62,10 +62,6 @@ export default function ToDoListRedux(props) {
     useEffect(() => {
         getTaskList();
 
-
-        return () => {
-
-        }
     }, [])
 
     //Xử lý reject task

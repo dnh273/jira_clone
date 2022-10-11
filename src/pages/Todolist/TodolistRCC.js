@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Axios from 'axios'
-import style from './Todolist.css'
+import style from './TodolistCss.css'
 
 export default class Todolist extends Component {
 
@@ -227,18 +227,7 @@ export default class Todolist extends Component {
                                 <ul className="todo" id="completed">
                                     {this.renderTaskToDoDone()}
 
-                                    {/* <li>
-                                    <span>Ăn sáng</span>
-                                    <div className="buttons">
-                                        <button className="remove">
-                                            <i className="fa fa-trash-alt" />
-                                        </button>
-                                        <button className="complete">
-                                            <i className="far fa-check-circle" />
-                                            <i className="fas fa-check-circle" />
-                                        </button>
-                                    </div>
-                                </li> */}
+                                   
                                 </ul>
                             </div>
                         </div>

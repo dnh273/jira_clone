@@ -4,7 +4,7 @@ import { STATUS_CODE } from "../../../util/constants/settingSystem";
 import { GET_ALL_PROJECT_CATEGORY, GET_ALL_PROJECT_CATEGORY_SAGA } from "../../constants/Cyberbugs/Cyberbugs";
 
 function* getAllProjectCategorySaga(action) {
-    console.log('actionSaga', action);
+    // console.log('actionSaga', action);
 
     try {
 

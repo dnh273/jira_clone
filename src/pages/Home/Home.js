@@ -6,10 +6,9 @@ export default function Home(props) {
     return (
         <div>
             {userLogin?.name}
-            <img src={userLogin?.avatar} />
+            <img src={userLogin?.avatar} alt=''/>
         </div>
     )
 }
-
 
 
